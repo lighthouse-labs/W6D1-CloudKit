@@ -15,6 +15,7 @@
 		AF94C31F1A919C5E00DAB3B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF94C31E1A919C5E00DAB3B2 /* Images.xcassets */; };
 		AF94C3221A919C5E00DAB3B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF94C3201A919C5E00DAB3B2 /* LaunchScreen.xib */; };
 		AF94C32E1A919C5E00DAB3B2 /* W6D1_CloudKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF94C32D1A919C5E00DAB3B2 /* W6D1_CloudKitTests.m */; };
+		AF94C3391A91B4CE00DAB3B2 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF94C3381A91B4CE00DAB3B2 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		AF94C3271A919C5E00DAB3B2 /* W6D1-CloudKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "W6D1-CloudKitTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF94C32C1A919C5E00DAB3B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF94C32D1A919C5E00DAB3B2 /* W6D1_CloudKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = W6D1_CloudKitTests.m; sourceTree = "<group>"; };
+		AF94C3371A91B4BF00DAB3B2 /* W6D1-CloudKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "W6D1-CloudKit.entitlements"; sourceTree = "<group>"; };
+		AF94C3381A91B4CE00DAB3B2 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF94C3391A91B4CE00DAB3B2 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +70,7 @@
 		AF94C3021A919C5D00DAB3B2 = {
 			isa = PBXGroup;
 			children = (
+				AF94C3381A91B4CE00DAB3B2 /* CloudKit.framework */,
 				AF94C30D1A919C5E00DAB3B2 /* W6D1-CloudKit */,
 				AF94C32A1A919C5E00DAB3B2 /* W6D1-CloudKitTests */,
 				AF94C30C1A919C5E00DAB3B2 /* Products */,
@@ -84,6 +89,7 @@
 		AF94C30D1A919C5E00DAB3B2 /* W6D1-CloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				AF94C3371A91B4BF00DAB3B2 /* W6D1-CloudKit.entitlements */,
 				AF94C3121A919C5E00DAB3B2 /* AppDelegate.h */,
 				AF94C3131A919C5E00DAB3B2 /* AppDelegate.m */,
 				AF94C3151A919C5E00DAB3B2 /* MasterViewController.h */,
@@ -173,6 +179,12 @@
 				TargetAttributes = {
 					AF94C30A1A919C5D00DAB3B2 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 2VGL7CT34X;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					AF94C3261A919C5E00DAB3B2 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -349,9 +361,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "W6D1-CloudKit/W6D1-CloudKit.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "W6D1-CloudKit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -359,9 +375,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "W6D1-CloudKit/W6D1-CloudKit.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "W6D1-CloudKit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

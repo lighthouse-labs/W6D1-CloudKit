@@ -8,6 +8,7 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import <CloudKit/CloudKit.h>
 
 @interface MasterViewController ()
 
@@ -15,6 +16,7 @@
 @end
 
 @implementation MasterViewController
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -27,6 +29,64 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+   
+    /*Saving a record from public Database
+    CKRecordID *wellKnownID = [[CKRecordID alloc] initWithRecordName:@"WellKnownID1"];
+
+    CKRecord *event = [[CKRecord alloc] initWithRecordType:@"Event" recordID:wellKnownID];
+    
+    CKContainer *defaultContainer = [CKContainer defaultContainer];
+    CKDatabase *publicDatabase = [defaultContainer publicCloudDatabase];
+
+    [publicDatabase saveRecord:event completionHandler:^(CKRecord *record, NSError *error) {
+        //
+        
+        if (error){
+            NSLog(@"ERROR!, %@", error.description);
+        }else{
+            NSLog(@"NO ERROR");
+        }
+    }];*/
+    
+    /*Fetching a record from public Database
+    CKContainer *defaultContainer = [CKContainer defaultContainer];
+    CKDatabase *publicDatabase = [defaultContainer publicCloudDatabase];
+    
+    CKRecordID *wellKnownID = [[CKRecordID alloc] initWithRecordName:@"WellKnownID1"];
+    
+    [publicDatabase fetchRecordWithID:wellKnownID completionHandler:^(CKRecord *record, NSError *error) {
+        
+        if (error){
+            NSLog(@"ERROR!, %@", error.description);
+        }else{
+            NSLog(@"NO ERROR, %@", record.recordType);
+        }
+    }];*/
+    
+    //Fetching a record from private Database
+    CKContainer *defaultContainer = [CKContainer defaultContainer];
+    CKDatabase *privateDatabase = [defaultContainer privateCloudDatabase];
+    
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:@"Event1" predicate:[NSPredicate predicateWithValue:YES]];
+    
+    [privateDatabase performQuery:query inZoneWithID:nil completionHandler:^(NSArray *results, NSError *error) {
+        if (error){
+            NSLog(@"ERROR!, %@", error.description);
+        }else{            
+            for (CKRecord *record in results){
+                NSLog(@"record is %@", record.description);
+            }
+            
+            self.objects = [results mutableCopy];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+            
+        }
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,8 +126,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    CKRecord *object = self.objects[indexPath.row];
+    cell.textLabel.text = [object objectForKey:@"name"];
     return cell;
 }
 
